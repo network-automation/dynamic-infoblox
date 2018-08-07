@@ -1,0 +1,7 @@
+---
+- name: Take a Infoblox configuration snapshot
+  hosts: localhost
+  connection: local
+ 
+  roles:
+    - { role: snapshotConfiguration, wapi_version: 'v2.6' }
