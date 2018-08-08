@@ -48,7 +48,7 @@ _Note: Restoring the snapshot is currently a manual step but I hope to have auto
 
 These final playbooks require a second configured Infoblox instance: 
 
-This first playbook predfines the second instance as a gridmaster candidate assuming nios_provider as the gridmaster. It requires 4 variables to be defined: 
+This first playbook predefines the second instance as a gridmaster candidate assuming nios_provider as the gridmaster. It requires 4 variables to be defined: 
 1. master_candidate_name
 2. master_candidate_address
 3. master_candidate_gateway
