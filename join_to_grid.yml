@@ -1,0 +1,8 @@
+---
+- name: Join a Grid Master Candidate or Grid Member appliance to the Grid
+  hosts: localhost
+  connection: local
+ 
+  roles:
+    - { role: joinGrid }
+...
