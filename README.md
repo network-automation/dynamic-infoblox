@@ -14,9 +14,10 @@ The infoblox-client installed on the targeted localhost machine. Ansible Core >=
 
 Role Variables
 --------------
+
 Example nios_provider supplied below. This should be vaulted in group_vars/localhost/main.yml for production use
 
-```
+```yaml
 nios_provider:
    #Out-of-the-box defaults specified here
    host: 192.168.1.2
@@ -26,6 +27,7 @@ nios_provider:
 
 Example Playbooks
 -----------------
+
 Role defaults for dynamicInfoblox can be overriden at either the playbook or role level:
 
 ```
@@ -49,19 +51,19 @@ _Note: Restoring the snapshot is currently a manual step but I hope to have auto
 These final playbooks require a second configured Infoblox instance: 
 
 This first playbook predefines the second instance as a gridmaster candidate assuming nios_provider as the gridmaster. It requires 4 variables to be defined: 
-1. master_candidate_name
-2. master_candidate_address
-3. master_candidate_gateway
-4. master_candidate_subnet_mask
+1. `master_candidate_name`
+2. `master_candidate_address`
+3. `master_candidate_gateway`
+4. `master_candidate_subnet_mask`
 ```
 ansible-playbook predefine_gridmaster_candidate.yml -e 'master_candidate_name=gmc.ansible.local master_candidate_address=192.168.2.2 master_candidate_gateway=192.168.2.254 master_candidate_subnet_mask=255.255.255.0'
 ```
 
 This playbook predefines a grid member. It requires 4 variables to be defined:
-1. member_name
-2. member_address
-3. member_gateway
-4. member_subnet_mask
+1. `member_name`
+2. `member_address`
+3. `member_gateway`
+4. `member_subnet_mask`
 ```
 ansible-playbook predefine_gridmember.yml -e 'member_name=m3.ansible.local member_address=192.168.2.3 member_gateway=192.168.2.254 member_subnet_mask=255.255.255.0'
 ```
@@ -69,67 +71,84 @@ ansible-playbook predefine_gridmember.yml -e 'member_name=m3.ansible.local membe
 
 Role Calls
 -----------------
+
 Overrides at the role level allow single playbooks to call the same roles in succession with new network information.
 
 The default invocation creates a forward/reverse zone, subnet, and gateway address using out-of-the-box configurations, but does not generate additional hosts:
 
-    - hosts: localhost
-      connection: local
-      roles:
-         - { role: dynamicInfoblox }
+```yaml
 
-Specify a host_count to create several host records at a time:
+- hosts: localhost
+  connection: local
+  roles:
+     - { role: dynamicInfoblox }
+```
 
-    - hosts: localhost
-      connection: local
-      roles:
-         - { role: dynamicInfoblox, host_count: 10 }
+Specify a `host_count` to create several host records at a time:
 
+```yaml
+- hosts: localhost
+  connection: local
+  roles:
+     - { role: dynamicInfoblox, host_count: 10 }
+```
 Override the default zone:
 
-    - hosts: localhost
-      connection: local
-      roles:
-         - { role: dynamicInfoblox, ansible_zone: redhat.com }
-
+```yaml
+- hosts: localhost
+  connection: local
+  roles:
+     - { role: dynamicInfoblox, ansible_zone: redhat.com }
+```
 Override the default subnet. The default gateway_address is automated to reflect changes overriden here:
 
-    - hosts: localhost
-      connection: local
-      roles:
-         - { role: dynamicInfoblox, ansible_subnet: 10.10.10.0/24 }
+```yaml
+- hosts: localhost
+  connection: local
+  roles:
+     - { role: dynamicInfoblox, ansible_subnet: 10.10.10.0/24 }
+```
 
 Start the dns service on the gridmasterr:
 
-    - hosts: localhost
-      connection: local
-      roles:
-         - { role: updateService, gridmaster_fqdn: gm.ansible.local, state: started }
+```yaml
+- hosts: localhost
+  connection: local
+  roles:
+     - { role: updateService, gridmaster_fqdn: gm.ansible.local, state: started }
+```
 
 Take a snapshot of Infoblox configuration:
 
-    - hosts: localhost
-      connection: local
-      roles:
-         - { role: snapshotConfiguration }
+```yaml
+- hosts: localhost
+  connection: local
+  roles:
+     - { role: snapshotConfiguration }
+```
 
 Predefine a new gridmaster candidate:
 
-    - hosts: localhost
-      connection: local
-      roles:
-         - { role: predefineGridmasterCandidate, master_candidate_name:gmc.ansible.local, master_candidate_address: 192.168.2.2, master_candidate_gateway: 192.168.2.254, master_candidate_subnet_mask:255.255.255.0 }
-
+```yaml
+- hosts: localhost
+  connection: local
+  roles:
+     - { role: predefineGridmasterCandidate, master_candidate_name:gmc.ansible.local, master_candidate_address: 192.168.2.2, master_candidate_gateway: 192.168.2.254, master_candidate_subnet_mask:255.255.255.0 }
+```
 
 Predefine a new gridmember:
 
-    - hosts: localhost
-      connection: local
-      roles:
-         - { role: predefineGridmember, member_name:gmc.ansible.local, member_address: 192.168.2.2, member_gateway: 192.168.2.254, member_subnet_mask:255.255.255.0 }
+```yaml
+- hosts: localhost
+  connection: local
+  roles:
+     - { role: predefineGridmember, member_name:gmc.ansible.local, member_address: 192.168.2.2, member_gateway: 192.168.2.254, member_subnet_mask:255.255.255.0 }
+```
+
 
 Author Information
 ------------------
+
 ```
 Branden Pleines
 Bret Pleines
