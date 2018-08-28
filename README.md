@@ -18,7 +18,7 @@ Role Variables
 --------------
 Example nios_provider supplied below. This should be vaulted in group_vars/localhost/main.yml for production use.
 
-```
+```yaml
 nios_provider:
    #Out-of-the-box defaults specified here
    host: 192.168.1.2
