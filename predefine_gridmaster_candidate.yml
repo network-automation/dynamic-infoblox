@@ -1,7 +1,7 @@
 ---
-- name: Predefine a gridmaster candidate to join the primary gridmaster
+- name: Predefine a Gridmaster Candidate to join the primary Grid Master
   hosts: localhost
   connection: local
  
   roles:
-    - { role: predefineGridmasterCandidate }
+    - { role: predefineGridmasterCandidate, master_candidate_name: gmc.redhat.com, master_candidate_address: 192.168.2.2, master_candidate_gateway: 192.168.2.254,     master_candidate_subnet_mask: 255.255.255.0 }

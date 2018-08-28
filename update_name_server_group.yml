@@ -1,5 +1,5 @@
 ---
-- name: Update a service for a name server group
+- name: Update the Grid membership of a Name Server Group
   hosts: localhost
   connection: local
  

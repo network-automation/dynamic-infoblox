@@ -1,7 +1,7 @@
 ---
-- name: Predefine a grid member
+- name: Predefine a Grid Member
   hosts: localhost
   connection: local
  
   roles:
-    - { role: predefineGridmember }
+    - { role: predefineGridmember, member_name: m3.redhat.com, member_address: 192.168.2.3, member_gateway: 192.168.2.254, member_subnet_mask: 255.255.255.0 }

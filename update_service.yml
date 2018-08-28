@@ -1,8 +1,8 @@
 ---
-- name: Update a service for a specified gridmember
+- name: Update a service for a specified Grid Member
   hosts: localhost
   connection: local
  
   roles:
-    - { role: updateService }
+    - { role: updateService, join_grid_host: ansible.gm.local }
 ...
