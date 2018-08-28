@@ -1,0 +1,7 @@
+
+
+    Having inventory specified in ansible.cfg means that playbook invocations don't have to run -i inventory --- (Issue: Add ansible.cfg #11)
+    ***note: the lab documentation playbook commands could be edited as well if this is merged
+
+    Mainly is important for customers because this is how the Ansible Docs do it. Include_role and import_role are typically reserved for edge cases like looping over roles --- (Call roles directly instead of using include_role #12)
+
